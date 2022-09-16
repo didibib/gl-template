@@ -1,6 +1,7 @@
 #pragma once
 
 // STD 
+#include <iostream>
 #include <stdio.h>
 #include <string>
 #include <fstream>
@@ -16,10 +17,6 @@
 #include <GLFW/glfw3.h>
 #ifdef _WIN32
 #include "GLFW/glfw3native.h"
-#endif
-#ifdef _WIN32
-#include <Windows.h>
-#include <GL/glu.h>
 #endif
 
 // GLM headers

@@ -28,7 +28,8 @@ update_submodules()
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glm)
 add_subdirectory(vendor/spdlog)
-add_subdirectory(template)
+add_subdirectory(src/template)
+add_subdirectory(src/program)
 
-set_startup_project(template)
+set_startup_project(program)
 

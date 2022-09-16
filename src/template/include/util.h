@@ -1,7 +1,5 @@
 #pragma once
 
-//#include "perlin_noise.hpp"
-
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
 
@@ -24,7 +22,6 @@ namespace util
 		inline float Float() { return Uint() * 2.3283064365387e-10f; }
 		inline float Range(float range) { return Float() * range; }
 
-		//static const siv::PerlinNoise perlin{ seed };
 	}
 
 	namespace math

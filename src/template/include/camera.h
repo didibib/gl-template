@@ -1,6 +1,6 @@
 #pragma once
 
-namespace he
+namespace templ8
 {
 	// Some usefull info about the camera matrices
 	// https://gamedev.stackexchange.com/questions/178643/the-view-matrix-finally-explained
@@ -20,7 +20,7 @@ namespace he
 		void setPos(glm::vec3 const& pos);
 		void setPos(float const& x, float const& y, float const& z);
 		void rotateAroundPoint(glm::vec3 target, float radius, float speed = 1);
-		void reset(bool rotate_camera);
+		void reset(bool rotateCamera);
 		void zoom(float offset);
 
 		const glm::mat4& getProjMatrix();

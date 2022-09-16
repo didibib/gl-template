@@ -1,7 +1,7 @@
-#include "hepch.h"
+#include "template_pch.h"
 #include "camera.h"
 
-namespace he
+namespace templ8
 {
 	Camera::Camera()
 		: m_yaw(-90), m_pitch(0), 

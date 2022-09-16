@@ -1,9 +1,9 @@
-#include "hepch.h"
+#include "template_pch.h"
 #include "logger.h"
 
-namespace logger
+namespace templ8
 {
-	void logger::init()
+	void logger::init( )
 	{
 		// https://github.com/gabime/spdlog/wiki/3.-Custom-formatting
 		// %^ Start color range (can be used only once)
@@ -12,14 +12,16 @@ namespace logger
 		// %@ Source file and line (use SPDLOG_TRACE(..), SPDLOG_INFO(...) etc. instead of spdlog::trace(...)
 		// %! Source function (use SPDLOG_TRACE(..), SPDLOG_INFO(...) etc. see tweakme for pretty-print)
 		// %$ End color range (can be used only once)
-		spdlog::set_pattern("%^%L/[%T] >> %@ >> %!\n--%v%$");	
-		auto logger = spdlog::stdout_color_mt("console");
-		logger->set_level(spdlog::level::trace);
-		spdlog::set_default_logger(logger);
+		spdlog::set_pattern( "%^%L/[%T] >> %@ >> %!\n--%v%$" );
+		auto logger = spdlog::stdout_color_mt( "console" );
+		logger->set_level( spdlog::level::trace );
+		spdlog::set_default_logger( logger );
 	}
 
-	void logger::shutdown()
+	void logger::shutdown( )
 	{
-		spdlog::shutdown();
+		spdlog::shutdown( );
 	}
+
 }
+
