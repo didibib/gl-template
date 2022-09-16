@@ -2,7 +2,7 @@
 #include "camera.h"
 #include "window.h"
 
-namespace templ8
+namespace tmpl8
 {
 	Camera::Camera()
 		: m_yaw(-90), m_pitch(0), 

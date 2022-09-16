@@ -1,7 +1,7 @@
 #include "template_pch.h"
 #include "logger.h"
 
-namespace templ8
+namespace tmpl8
 {
 	void logger::init( )
 	{

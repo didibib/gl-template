@@ -5,7 +5,7 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
-namespace templ8
+namespace tmpl8
 {
 	namespace logger
 	{

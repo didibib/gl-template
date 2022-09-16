@@ -1,6 +1,6 @@
 #pragma once
 
-namespace templ8
+namespace tmpl8
 {
 	class Window;
 

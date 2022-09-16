@@ -1,6 +1,6 @@
 #pragma once
 
-namespace templ8
+namespace tmpl8
 {
 	// https://stackoverflow.com/questions/1008019/c-singleton-design-pattern
 	class Window
@@ -65,4 +65,4 @@ namespace templ8
 		void frameBufferCallback( GLFWwindow* window, int width, int height );
 		void setupCallbacks( );
 	};
-} /* namespace templ8 */
+} /* namespace tmpl8 */

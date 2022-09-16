@@ -3,7 +3,7 @@
 #include "util.h"
 #include "camera.h"
 
-namespace templ8
+namespace tmpl8
 {
 	Window::Window( ) :
 		m_width( 0 ), m_height( 0 ), m_title( "" ),
@@ -42,7 +42,7 @@ namespace templ8
 		glfwSetWindowUserPointer( m_glfw_window, this );
 		glfwMakeContextCurrent( m_glfw_window );
 
-		// Load OpenGL extensions
+		// load OpenGL extensions
 		if ( !gladLoadGLLoader( (GLADloadproc)glfwGetProcAddress ) )
 		{
 			CRITICAL( "Failed to initialize OpengGL context" );
@@ -221,4 +221,4 @@ namespace templ8
 
 #pragma endregion
 
-} /* namespace templ8 */
+} /* namespace tmpl8 */

@@ -27,8 +27,14 @@ set(WINDOW
 set(SCENE 
     "include/camera.h"
     "src/camera.cpp"
+
     "include/shader.h"
     "src/shader.cpp"
+
+    "include/cube.h"
+    "include/vertex.h"
+    "include/vertex_buffer.h"
+    "src/vertex_buffer.cpp"
 )
 
 add_library(${LIB_NAME} STATIC

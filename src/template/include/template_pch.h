@@ -27,3 +27,4 @@
 
 // Own headers
 #include "logger.h"
+#include "vertex.h"
