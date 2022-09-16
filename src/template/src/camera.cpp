@@ -1,5 +1,6 @@
 #include "template_pch.h"
 #include "camera.h"
+#include "window.h"
 
 namespace templ8
 {
@@ -8,18 +9,20 @@ namespace templ8
 		m_forward(0.f, -1.f, 0.f), m_up(0.f, 0.f, 1.f), m_right(1.f, 0.f, 0.f), m_world_up(0.f, 0.f, 1.f)
 	{
 	}
-	void Camera::init(const float& fov, const int& viewWidth, const int& viewHeight, const float& nearPlane, const float& farPlane)
+	void Camera::init(const float& fov, Window* window, const float& nearPlane, const float& farPlane)
 		// Yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector 
 		// pointing to the right so we initially rotate a bit to the left.
 	{
 		m_fov = fov;
-		m_view_width = viewWidth;
-		m_view_height = viewHeight;
+		m_view_width = window->getWidth();
+		m_view_height = window->getHeight();
 		m_near = nearPlane;
 		m_far = farPlane;
 
 		m_projection = glm::perspective(glm::radians(m_fov), (float)m_view_width / (float)m_view_height, m_near, m_far);
 		updateCameraVectors();
+
+		window->registerFrameBufferCb( this, &Camera::onWindowResize );
 	}
 
 	void Camera::move(const Direction& dir, const float& deltaTime)

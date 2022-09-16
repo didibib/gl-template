@@ -24,9 +24,11 @@ set(WINDOW
     "src/window.cpp"
 )
 
-set(CAMERA 
+set(SCENE 
     "include/camera.h"
     "src/camera.cpp"
+    "include/shader.h"
+    "src/shader.cpp"
 )
 
 add_library(${LIB_NAME} STATIC
@@ -35,7 +37,7 @@ add_library(${LIB_NAME} STATIC
 	${GLAD}
 	${UTIL}
 	${WINDOW}
-	${CAMERA}
+	${SCENE}
 )
 
 source_group(//     FILES ${ROOT_FILES})
@@ -43,7 +45,7 @@ source_group(pch    FILES ${PCH})
 source_group(glad   FILES ${GLAD})
 source_group(util   FILES ${UTIL})
 source_group(window FILES ${WINDOW})
-source_group(camera FILES ${CAMERA})
+source_group(scene FILES ${SCENE})
 
 set_target_output_directories(${LIB_NAME})
 

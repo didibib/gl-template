@@ -10,6 +10,7 @@
 #include <random>
 #include <vector>
 #include <map>
+#include <functional>
 
 // OpenGL
 // Include glad before glfw!

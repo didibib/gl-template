@@ -2,6 +2,8 @@
 
 namespace templ8
 {
+	class Window;
+
 	// Some usefull info about the camera matrices
 	// https://gamedev.stackexchange.com/questions/178643/the-view-matrix-finally-explained
 	enum class Direction { Forward, Right, Up, Backward, Left, Down };
@@ -10,7 +12,7 @@ namespace templ8
 	{
 	public:
 		Camera();
-		void init(const float& fov, const int& viewWidth, const int& viewHeight, const float& nearPlane, const float& farPlane);
+		void init(const float& fov, Window* window, const float& nearPlane = 0.001f, const float& farPlane = 1000.f);
 
 		void move(const Direction& dir, const float& deltaTime);
 		void cursor(float xOffset, float yOffset);
@@ -27,6 +29,8 @@ namespace templ8
 		// Returns the view matrix calculated using Euler Angles and the LookAt Matrix
 		glm::mat4 getViewMatrix();
 	private:
+		Window* m_window = nullptr;
+
 		void updateCameraVectors();
 		float m_fov;
 		float m_near;

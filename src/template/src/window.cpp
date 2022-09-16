@@ -5,11 +5,12 @@
 
 namespace templ8
 {
-	Window::Window( )
+	Window::Window( ) :
+		m_width( 0 ), m_height( 0 ), m_title( "" ),
+		m_clear_color( glm::vec4( 40.f / 255.0f, 44.f / 255.0f, 53.f / 255.0f, 1.0f ) ),
+		m_cursor_last_pos( glm::vec2( 0 ) ),
+		m_scroll_offset( glm::vec2( 0 ) )
 	{
-		m_clear_color = glm::vec4( 245.f / 255.0f, 245.f / 255.0f, 220.f / 255.0f, 1.0f );
-		m_cursor_last_pos = glm::vec2( 0 );
-		m_scroll_offset = glm::vec2( 0 );
 	}
 
 	Window::~Window( )
@@ -20,14 +21,18 @@ namespace templ8
 	/**
 	 * OpenGL context initialisation
 	 */
-	bool Window::init( int width, int height, const char* win_name )
+	bool Window::init( int width, int height, const char* title )
 	{
+		m_width = width;
+		m_height = height;
+		m_title = title;
+
 		glfwInit( );
 		// Window hints need to be set before the creation of the window. 
 		// They function as additional arguments to glfwCreateWindow.
 		glfwWindowHint( GLFW_CONTEXT_VERSION_MAJOR, 3 );
 		glfwWindowHint( GLFW_CONTEXT_VERSION_MINOR, 3 );
-		m_glfw_window = glfwCreateWindow( width, height, win_name, nullptr, nullptr );
+		m_glfw_window = glfwCreateWindow( width, height, title, nullptr, nullptr );
 
 		if ( !m_glfw_window )
 		{
@@ -51,6 +56,12 @@ namespace templ8
 
 		return true;
 	}
+	
+	void Window::clear( )
+	{
+		glClearColor( m_clear_color.r, m_clear_color.g, m_clear_color.b, m_clear_color.a );
+		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+	}
 
 	bool Window::shouldClose( )
 	{
@@ -62,13 +73,17 @@ namespace templ8
 		glfwSwapBuffers( m_glfw_window );
 	}
 
-	/**
-	 * Render the 3D scene
-	 */
-	void Window::clear( )
+	void Window::unregisterFrameBufferCb( int index )
 	{
-		glClearColor( m_clear_color.r, m_clear_color.g, m_clear_color.b, m_clear_color.a );
-		glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+		int size = m_frame_buffer_cb.size( );
+		if ( index >= size ) return;
+		if ( size == 1 )
+		{
+			m_frame_buffer_cb.clear( );
+			return;
+		}
+		m_frame_buffer_cb[index] = m_frame_buffer_cb[size - 1];
+		m_frame_buffer_cb.resize( size - 1 );
 	}
 
 #pragma region ////INPUT
@@ -77,7 +92,7 @@ namespace templ8
 		return m_key_map[key] == GLFW_PRESS;
 	}
 
-	bool Window::isKeyReleased( int key)
+	bool Window::isKeyReleased( int key )
 	{
 		return m_key_map[key] == GLFW_RELEASE;
 	}
@@ -87,7 +102,7 @@ namespace templ8
 		return m_key_map[key] == GLFW_PRESS || m_key_map[key] == GLFW_REPEAT;
 	}
 
-	bool Window::isMousePressed( int button)
+	bool Window::isMousePressed( int button )
 	{
 		return m_mouse_map[button] == GLFW_PRESS;
 	}
@@ -112,7 +127,6 @@ namespace templ8
 	void Window::mouseCallback( GLFWwindow* window, int button, int action, int mods )
 	{
 		m_mouse_map[button] = action;
-		std::cout << button << std::endl;
 	}
 
 	void Window::scrollCallback( GLFWwindow* w, double xoffset, double yoffset )
@@ -126,8 +140,8 @@ namespace templ8
 	{
 		// The cursor can enter the window from different angels
 		// The difference between two last positions could change dramatically
-		if ( !m_reset_cursor )
-			m_camera->cursor( xpos - m_cursor_last_pos.x, m_cursor_last_pos.y - ypos );
+		/*if ( !m_reset_cursor )
+			m_camera->cursor( xpos - m_cursor_last_pos.x, m_cursor_last_pos.y - ypos );*/
 
 		m_cursor_last_pos.x = xpos;
 		m_cursor_last_pos.y = ypos;
@@ -136,6 +150,8 @@ namespace templ8
 	void Window::frameBufferCallback( GLFWwindow* window, int width, int height )
 	{
 		glViewport( 0, 0, width, height );
+		for ( int i = 0; i < m_frame_buffer_cb.size(); i++ )		
+			m_frame_buffer_cb[i]( width, height );		
 	}
 
 	void Window::cursorEnterCallback( GLFWwindow* w, int entered )
